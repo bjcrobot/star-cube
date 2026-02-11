@@ -1,0 +1,371 @@
+:root {
+  color-scheme: light;
+  --bg-1: #0f2027;
+  --bg-2: #203a43;
+  --bg-3: #2c5364;
+  --ink: #e7f5ff;
+  --accent: #ffd166;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('/assets/fonts/Orbitron-VariableFont_wght.woff2')format('woff2');
+  font-display: swap;
+}
+
+body {
+  margin: 0;
+  background: #000000;
+  color: var(--ink);
+  overflow: hidden;
+}
+
+#sceneWrap {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  transform: scale(1) translateZ(0);
+  transform-origin: center;
+  transition: transform 5s cubic-bezier(0.12, 0.62, 0.12, 1), opacity 3.4s ease;
+  opacity: 1;
+}
+
+#cubeView.is-warping #sceneWrap {
+  transform: scale(1.7) translateZ(420px);
+  opacity: 0;
+  transition-delay: 3.2s;
+}
+
+#cubeView.is-warping {
+  pointer-events: none;
+}
+
+.cube-star {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 3;
+  font-size: 24px;
+  color: #ffd166;
+  text-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+  transform: scale(1);
+  transition: transform 0.2s ease, opacity 0.6s ease;
+  user-select: none;
+}
+
+.cube-star:hover {
+  transform: scale(1.25);
+}
+
+.cube-star.star-dim {
+  opacity: 0.35;
+}
+
+.cube-star.star-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#hud {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 12px 16px;
+  background: rgba(15, 24, 32, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  z-index: 2;
+  transition: opacity 0.6s ease;
+}
+
+#aboutPanel {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: flex-end;
+  transition: opacity 0.6s ease;
+}
+
+#aboutPanel.about-dim {
+  opacity: 0.35;
+}
+
+#aboutPanel.about-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#aboutPanel .about-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#aboutPanel .about-toggle {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(10, 16, 22, 0.6);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+#aboutPanel .about-toggle:hover {
+  background: rgba(20, 28, 36, 0.75);
+}
+
+#aboutPanel .about-content {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: min(220px, 72vw);
+  padding: 10px 12px;
+  background: rgba(15, 24, 32, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  font-size: 12px;
+  line-height: 1.5;
+  max-height: 0;
+  transition: max-height 0.45s ease, opacity 0.45s ease, transform 0.45s ease;
+  opacity: 0;
+  transform: translateY(8px);
+  overflow: hidden;
+}
+
+#aboutPanel.about-open .about-content {
+  max-height: 320px;
+  opacity: 0.95;
+  transform: translateY(0);
+  overflow: auto;
+}
+
+#aboutPanel ul {
+  margin: 6px 0 0;
+  padding-left: 16px;
+}
+
+#aboutPanel ul li::marker {
+  content: "・ ";
+  color: var(--accent);
+}
+
+#aboutPanel .about-divider {
+  height: 1px;
+  margin: 10px 0 8px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+#aboutPanel .about-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+#aboutPanel .about-source svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+#aboutPanel a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+#aboutPanel a:hover {
+  text-decoration: underline;
+}
+
+.hud-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.hud-text {
+  flex: 1;
+}
+
+.hud-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hud-toggle button {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(10, 16, 22, 0.6);
+  color: var(--ink);
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hud-toggle .chevron {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-right: 2px solid rgba(255, 255, 255, 0.85);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.85);
+}
+
+.hud-toggle .chevron-down {
+  transform: rotate(45deg);
+}
+
+.hud-toggle .chevron-up {
+  transform: rotate(-135deg);
+}
+
+.hud-toggle button:hover {
+  background: rgba(20, 28, 36, 0.75);
+}
+
+.hud-toggle button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 2px;
+}
+
+#hud.hud-dim {
+  opacity: 0.35;
+}
+
+#hud.hud-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#hud h1 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.cube-intro-tag {
+  position: absolute;
+  left: 50%;
+  bottom: 52px;
+  transform: translateX(-50%);
+  font-size: 18px;
+  letter-spacing: 0.12em;
+  color: rgba(231, 245, 255, 0.8);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cube-intro-tag.is-active {
+  animation: cubeIntroTagFade 3s ease forwards;
+}
+
+@keyframes cubeIntroTagFade {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px);
+  }
+  20% {
+    opacity: 0.8;
+    transform: translateX(-50%) translateY(0);
+  }
+  80% {
+    opacity: 0.8;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-6px);
+  }
+}
+
+#hudTitle {
+  cursor: pointer;
+}
+
+#hud p {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+#hud.hud-collapsed .hud-controls {
+  display: none;
+}
+
+#hud #hudShow {
+  display: none;
+}
+
+#hud.hud-collapsed #hudShow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#hud.hud-collapsed #hudHide {
+  display: none;
+}
+
+.control {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.control label {
+  justify-self: start;
+}
+
+.control > span {
+  justify-self: end;
+  text-align: right;
+}
+
+.control input[type="range"] {
+  width: 140px;
+  justify-self: center;
+}
+
+.control .switch,
+.control button {
+  justify-self: center;
+}
+
+.control button {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(10, 16, 22, 0.6);
+  color: var(--ink);
+  padding: 6px 10px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.control button:hover {
+  background: rgba(20, 28, 36, 0.75);
+}
+
+canvas {
+  display: block;
+  position: relative;
+  z-index: 1;
+}

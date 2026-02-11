@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="theme-color" content="#0f2027" />
+    <title>STAR CUBE</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SWXMV3NYM0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-SWXMV3NYM0');
+    </script>
+
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+    <link rel="stylesheet" href="assets/styles/galaxy.css" />
+    <link rel="stylesheet" href="assets/styles/magic-cube.css" />
+    <link rel="stylesheet" href="assets/styles/intro.css" />
+  </head>
+  <body>
+    <canvas id="starfield"></canvas>
+    <div id="app">
+      <section id="introView" class="view is-active">
+        <div id="warpLayer" aria-hidden="true"></div>
+        <div class="title-wrap" id="warpTitleWrap" aria-hidden="true">
+          <div class="title" id="warpTitle">STAR CUBE</div>
+          <div class="title-sub" id="warpSubtitle">Probably a trilogy...</div>
+        </div>
+        <div id="introCubeLabel" class="intro-cube-label" aria-hidden="true">Episode IV</div>
+        <div id="bgmPanel" class="panel-hidden">
+          <div class="control">
+            <label for="introBgmToggle">Music</label>
+            <label class="switch">
+              <input id="introBgmToggle" type="checkbox" checked />
+              <span class="slider" aria-hidden="true"></span>
+            </label>
+            <span id="introBgmValue">Off</span>
+          </div>
+          <div id="bgmHint" class="bgm-hint">Tap to unmute</div>
+        </div>
+        <div id="aboutPanel" class="about-panel">
+          <div class="about-header">
+            <button id="aboutToggle" class="about-toggle" type="button">About</button>
+          </div>
+          <div class="about-content">
+            <div>Special thanks:</div>
+            <ul>
+              <li><a href="https://github.com/ldez/cubejs" target="_blank" rel="noopener">cubejs</a></li>
+              <li>
+                <a href="https://codepen.io/screenflare/pen/wBwaLJM" target="_blank" rel="noopener">
+                  Galaxy of Stars Background
+                </a>
+              </li>
+              <li><a href="https://github.com/goldfire/howler.js" target="_blank" rel="noopener">howler.js</a></li>
+              <li><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a></li>
+              <li>
+                <a href="https://threejs.org/examples/" target="_blank" rel="noopener">
+                  three.js examples (OrbitControls, postprocessing, SimplexNoise)
+                </a>
+              </li>
+              <li><a href="https://github.com/KilledByAPixel/ZzFX" target="_blank" rel="noopener">ZzFX</a></li>
+            </ul>
+            <div class="about-divider"></div>
+            <div>License:</div>
+            <ul>
+              <li><a href="https://mit-license.org/" target="_blank" rel="noopener">MIT</a></li>
+            </ul>
+            <div class="about-divider"></div>
+            <div>BGM:</div>
+            <ul>
+              <li><a href="https://suno.com/" target="_blank" rel="noopener">SUNO</a></li>
+              <li>
+                <a href="https://dova-s.jp/bgm/play22552.html" target="_blank" rel="noopener">Ancient memories</a>
+              </li>
+            </ul>
+            <div class="about-divider"></div>
+            <a class="about-source" href="https://github.com/bjcrobot/star-cube" target="_blank" rel="noopener">
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M8 0.2a8 8 0 0 0-2.53 15.59c0.4 0.07 0.55-0.17 0.55-0.38 0-0.19-0.01-0.83-0.01-1.5-2.01 0.37-2.53-0.49-2.69-0.94-0.09-0.23-0.48-0.94-0.82-1.13-0.28-0.15-0.68-0.52-0.01-0.53 0.63-0.01 1.08 0.58 1.23 0.82 0.72 1.21 1.87 0.87 2.33 0.66 0.07-0.52 0.28-0.87 0.51-1.07-1.78-0.2-3.64-0.89-3.64-3.95 0-0.87 0.31-1.59 0.82-2.15-0.08-0.2-0.36-1.02 0.08-2.12 0 0 0.67-0.21 2.2 0.82a7.53 7.53 0 0 1 2-0.27c0.68 0 1.36 0.09 2 0.27 1.53-1.04 2.2-0.82 2.2-0.82 0.44 1.1 0.16 1.92 0.08 2.12 0.51 0.56 0.82 1.27 0.82 2.15 0 3.07-1.87 3.75-3.65 3.95 0.29 0.25 0.54 0.73 0.54 1.48 0 1.07-0.01 1.93-0.01 2.2 0 0.21 0.15 0.46 0.55 0.38A8 8 0 0 0 8 0.2Z"></path>
+              </svg>
+              Star Cube
+            </a>
+          </div>
+        </div>
+        <div id="neonRing" aria-hidden="true"></div>
+      </section>
+      <section id="cubeView" class="view">
+        <div id="sceneWrap"></div>
+        <div id="cubeIntroTag" class="cube-intro-tag" aria-hidden="true">ER-1974 b</div>
+        <div class="cube-star" aria-hidden="true">★</div>
+        <div id="hud" class="hud-collapsed">
+          <div class="hud-header">
+            <div class="hud-text">
+              <h1 id="hudTitle">Magic Cube Planet</h1>
+              <!-- <p>They say it’s out there, in space.</p> -->
+            </div>
+            <div class="hud-toggle">
+              <button id="hudShow" type="button" aria-label="Show controls">
+                <span class="chevron chevron-down" aria-hidden="true"></span>
+              </button>
+              <button id="hudHide" type="button" aria-label="Hide controls">
+                <span class="chevron chevron-up" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+          <div class="hud-controls">
+            <div class="control">
+              <label for="speed">Speed</label>
+              <input id="speed" type="range" min="0.2" max="1.5" step="0.1" value="1.0" />
+              <span id="speedValue">1.0x</span>
+            </div>
+            <div class="control">
+              <label for="bgmToggle">Music</label>
+              <label class="switch">
+                <input id="bgmToggle" type="checkbox" />
+                <span class="slider" aria-hidden="true"></span>
+              </label>
+              <span id="bgmValue">Off</span>
+            </div>
+            <div class="control">
+              <label for="soundToggle">Sound</label>
+              <label class="switch">
+                <input id="soundToggle" type="checkbox" />
+                <span class="slider" aria-hidden="true"></span>
+              </label>
+              <span id="soundValue">Off</span>
+            </div>
+            <div class="control">
+              <label for="resetButton">Reset</label>
+              <button id="resetButton" type="button">Reset</button>
+              <!-- <span>R</span> -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="assets/scripts/galaxy.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cubejs@1.3.0/lib/cube.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cubejs@1.3.0/lib/solve.js"></script>
+    <script src="https://unpkg.com/zzfx@1.2.1/ZzFXMicro.min.js"></script>
+    <script src="assets/scripts/zzfx-bridge.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js"
+        }
+      }
+    </script>
+    <script type="module" src="assets/scripts/intro.js"></script>
+  </body>
+</html>

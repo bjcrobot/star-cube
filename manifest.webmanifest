@@ -1,0 +1,35 @@
+{
+  "name": "STAR CUBE",
+  "short_name": "STAR CUBE",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#060b16",
+  "theme_color": "#0f2027",
+  "icons": [
+    {
+      "src": "assets/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/images/pwa-screenshot.png",
+      "sizes": "762x431",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "assets/images/pwa-screenshot-mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}

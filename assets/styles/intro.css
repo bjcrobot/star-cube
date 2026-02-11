@@ -1,0 +1,222 @@
+body {
+  margin: 0;
+  /* font-family: "Space Grotesk", sans-serif; */
+  font-family: Orbitron, sans-serif;
+  color: #e7f5ff;
+}
+
+.title-wrap {
+  position: absolute;
+  top: 20vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('/assets/fonts/Orbitron-VariableFont_wght.woff2')format('woff2');
+  font-display: swap;
+}
+
+.title {
+  position: static;
+  text-align: left;
+  text-shadow: 
+    0 0 3px #fff,
+    0 0 6px #00f,
+    0 0 12px #fff; 
+  font-size: clamp(38px, 6vw, 64px);
+  letter-spacing: 0.2em; 
+  white-space: nowrap;
+  pointer-events: auto;
+}
+
+.title:hover {
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 15px #f99, /* 青を少し強める */
+    0 0 25px #fff; 
+  cursor: pointer; /* マウスを指の形にする */
+  transition: 0.3s; /* じわっと光らせる */
+}
+
+#neonRing {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+#warpLayer {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#introView.warp-only .title-wrap,
+#introView.warp-only #neonRing,
+#introView.warp-only #bgmPanel,
+#introView.warp-only #aboutPanel {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#introView.warp-only #warpLayer {
+  z-index: 4;
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.view {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  z-index: 0;
+}
+
+.view.is-active {
+  opacity: 1;
+  pointer-events: auto;
+
+.title-sub {
+  position: static;
+  text-align: right;
+  font-size: clamp(8px, 1.8vw, 15px);
+  letter-spacing: 0.12em;
+  color: rgba(231, 245, 255, 0.68);
+  opacity: 0.9;
+  transition: opacity 1.2s ease;
+  pointer-events: none;
+  font-family: Orbitron, sans-serif;
+}
+
+.title-sub.is-fading {
+  opacity: 0;
+}
+  z-index: 2;
+}
+
+.intro-cube-label {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(8px, 1.5vw, 12px);
+  letter-spacing: 0.14em;
+  color: rgba(231, 245, 255, 0.8);
+  opacity: 0;
+  z-index: 4;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  transition-delay: 0.25s;
+}
+
+.intro-cube-label.is-visible {
+  opacity: 0.85;
+  transition-delay: 0s;
+}
+
+#introView.warp-only {
+  z-index: 3;
+  pointer-events: none;
+}
+
+#bgmPanel {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 12px 16px;
+  background: rgba(15, 24, 32, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  z-index: 3;
+  transition: opacity 0.35s ease;
+  pointer-events: auto;
+}
+
+#bgmPanel.panel-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#bgmPanel.panel-dim {
+  opacity: 0.35;
+}
+
+#bgmPanel .control {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+#bgmPanel .control label {
+  justify-self: start;
+}
+
+#bgmPanel .control > span {
+  justify-self: end;
+  text-align: right;
+}
+
+.bgm-hint {
+  margin-top: 8px;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: left;
+}
+
+.bgm-hint.is-visible {
+  opacity: 0.85;
+}
+
+#introView #aboutPanel {
+  position: fixed;
+  right: 16px;
+  top: auto;
+  bottom: 16px;
+  z-index: 6;
+  pointer-events: auto;
+}
+
+#introView #aboutPanel .about-toggle {
+  pointer-events: auto;
+}
+
+#introView #aboutPanel .about-content {
+  top: auto;
+  bottom: calc(100% + 8px);
+}
+
+#introView #aboutPanel.about-open .about-content {
+  max-height: 320px;
+  opacity: 0.95;
+  transform: translateY(0);
+  overflow: auto;
+}
+
